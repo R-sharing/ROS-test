@@ -1,0 +1,15 @@
+version: "3.2"
+
+services:
+    ROS2:
+        image: ROS2_FOXY        
+        build:
+            context: .
+            dockerfile: Dockerfile      
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix                
+        environment: 
+            - DISPLAY=$DISPLAY          
+        working_dir: /code
+        command: "sleep 99999999999"
+        network_mode: host
