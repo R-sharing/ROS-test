@@ -65,3 +65,9 @@ RUN colcon build --symlink-install
 RUN apt-get install -y ros-foxy-turtle-tf2-py ros-foxy-tf2-tools ros-foxy-tf-transformations
 RUN pip3 install transforms3d
 
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+RUN cat /etc/apt/sources.list.d/gazebo-stable.list
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+RUN apt-get update 
+RUN apt-get install -y gazebo11
+RUN apt install ros-foxy-gazebo-ros-pkgs

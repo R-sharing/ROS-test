@@ -2,25 +2,20 @@ version: "3.2"
 
 services:
     ROS2_FOXY:
-        image: ros2foxy       
+        runtime: nvidia
+        image: ros2foxy
+        devices: 
+            - /dev/dri/card0:/dev/dri/card0
+            - /dev/dri:/dev/dri
+        privileged: true
         build:
             context: .
             dockerfile: Dockerfile      
         volumes:
-            - /tmp/.X11-unix:/tmp/.X11-unix                
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - /hdd/project/ROS2/libs/robot_for_gazebo:/src/robot_for_gazebo                
         environment: 
             - DISPLAY=$DISPLAY          
         working_dir: /code
-        command: "sleep 99999999999"
-        network_mode: host
-
-    gzweb8:        
-        image: osrf/gazebo:gzweb8
-        volumes:
-            - /tmp/.X11-unix:/tmp/.X11-unix           
-            - ./src:/src           
-        environment: 
-            - DISPLAY=$DISPLAY          
-        #working_dir: /    #     
         command: "sleep 99999999999"
         network_mode: host
