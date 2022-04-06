@@ -1,4 +1,8 @@
 # ROS2
+Подгружаем библиотеку с моделью робота.
+```
+git submodule update --init --recursive
+```
 Даем доступ к X-серверу
 ```
 xhost +
