@@ -1,21 +1,23 @@
 version: "3.2"
 
 services:
-    ROS2_FOXY:
-        runtime: nvidia
-        image: ros2foxy
+    FOXY_IGN:        
+        image: robosharing/foxy_ign:latest
         devices: 
             - /dev/dri/card0:/dev/dri/card0
             - /dev/dri:/dev/dri
         privileged: true
-        build:
-            context: .
-            dockerfile: Dockerfile      
+        # build:
+        #     context: .
+        #     dockerfile: Dockerfile_foxy_ign     
         volumes:
             - /tmp/.X11-unix:/tmp/.X11-unix
-            - /hdd/project/ROS2/libs/robot_for_gazebo:/src/robot_for_gazebo                
+            - ./libs/robot_for_gazebo:/models/robot_for_gazebo                         
         environment: 
-            - DISPLAY=$DISPLAY          
-        working_dir: /code
+            - DISPLAY=$DISPLAY
+            - GAZEBO_MODEL_PATH=/models/robot_for_gazebo
+            - GAZEBO_RESOURCE_PATH=/models/robot_for_gazebo
+            - IGN_GAZEBO_RESOURCE_PATH=/models/robot_for_gazebo   
+        working_dir: /
         command: "sleep 99999999999"
         network_mode: host
